@@ -249,13 +249,6 @@ svg text{ font-family: var(--font-mono); }
   color: var(--tech); background: var(--tech-ink); padding: 3px 8px; border-radius: 2px; margin-bottom: 8px;
 }
 
-/* ---------- analogs (small closing gallery) ---------- */
-.analog-row{ display:grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
-@media (max-width: 760px){ .analog-row{ grid-template-columns: 1fr; } }
-.analog-mini{ overflow:hidden; }
-.analog-mini img{ display:block; width:100%; height:auto; }
-.analog-mini-cap{ padding: 10px 14px 12px; font-size: 12.5px; color: var(--ink-muted); border-top: 1px solid var(--line); }
-
 /* ---------- calculations ---------- */
 .calc-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 @media (max-width: 960px){ .calc-grid{ grid-template-columns: 1fr; } }
@@ -441,25 +434,6 @@ footer{ padding: 24px 0; border-top:1px solid var(--line); }
       <div class="plate analog-plate hover-lift">
         <img src="assets/prot1.jpg" alt="Гусеничный агроробот-культиватор: гидравлические магистрали, подающие давление к дисковой бороне">
         <div class="analog-cap"><b>Гидравлические магистрали</b> подают давление к цилиндрам бороны и регулируют её ход.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section alt" id="analogs">
-  <div class="wrap">
-    <div class="section-head reveal" style="margin-bottom:24px;">
-      <span class="eyebrow">Аналоги</span>
-      <h2 style="font-size:22px;">Похожие решения в мире</h2>
-    </div>
-    <div class="analog-row reveal-stagger">
-      <div class="plate analog-mini hover-lift">
-        <img src="assets/analog-compact.jpg" alt="Компактный серый автономный трактор-робот с навесным культиватором во время полевой демонстрации">
-        <div class="analog-mini-cap">Компактная автономная платформа</div>
-      </div>
-      <div class="plate analog-mini hover-lift">
-        <img src="assets/analog-cultivator.jpg" alt="Трактор-робот Cognitive Pilot с навесным жёлтым культиватором на выставочной площадке">
-        <div class="analog-mini-cap">Трактор-робот с навесным орудием</div>
       </div>
     </div>
   </div>
