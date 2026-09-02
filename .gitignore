@@ -1,0 +1,11 @@
+.agents/
+.claude/
+skills-lock.json
+
+# unused raw source photos (kept locally only; used copies live under */assets/)
+/prot1.jpg
+/KSIRobot1.jpg
+/Front.png
+/Backward.png
+/mini-traktor.jpg
+/l-478423.jpg

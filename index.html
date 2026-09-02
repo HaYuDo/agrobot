@@ -3,62 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Агроробот - культиватор</title>
+<title>Презентации роботов</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg: #ffffff;
-  --bg-alt: #f3f7f3;
-  --surface: #ffffff;
-  --surface-line: #e0e8e1;
-  --ink: #16211a;
-  --ink-muted: #52655a;
-  --ink-faint: #8a9990;
-  --accent: #1f7a4c;
-  --accent-ink: #ffffff;
-  --tech: #35506b;
-  --tech-ink: #eef2f6;
-  --line: #dce6dd;
-  --shadow: 0 1px 0 rgba(20,32,25,0.05);
+  --bg: #0d1117;
+  --bg-alt: #10151c;
+  --surface: #161b22;
+  --surface-line: #232a34;
+  --ink: #f5f7fa;
+  --ink-muted: #9aa4b2;
+  --ink-faint: #656e7a;
+  --accent: #2563eb;
+  --accent-hover: #3b82f6;
+  --accent-ink: #f5f7fa;
+  --line: #232a34;
+  --shadow: 0 1px 0 rgba(0,0,0,0.35);
 
   --font-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
   --font-body: "Public Sans", -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", "Consolas", monospace;
-}
-
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg: #0f1613;
-    --bg-alt: #131c17;
-    --surface: #17211c;
-    --surface-line: #263229;
-    --ink: #eaf2ec;
-    --ink-muted: #a9bdae;
-    --ink-faint: #6f8377;
-    --accent: #3fae74;
-    --accent-ink: #06120a;
-    --tech: #7fa0c2;
-    --tech-ink: #0d1620;
-    --line: #263229;
-    --shadow: 0 1px 0 rgba(0,0,0,0.35);
-  }
-}
-:root[data-theme="dark"]{
-  --bg: #0f1613;
-  --bg-alt: #131c17;
-  --surface: #17211c;
-  --surface-line: #263229;
-  --ink: #eaf2ec;
-  --ink-muted: #a9bdae;
-  --ink-faint: #6f8377;
-  --accent: #3fae74;
-  --accent-ink: #06120a;
-  --tech: #7fa0c2;
-  --tech-ink: #0d1620;
-  --line: #263229;
-  --shadow: 0 1px 0 rgba(0,0,0,0.35);
 }
 
 *{ box-sizing: border-box; }
@@ -71,10 +37,10 @@ body{
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
-img,svg{ max-width:100%; }
+img{ max-width:100%; }
 .wrap{ max-width: 1120px; margin: 0 auto; padding: 0 28px; }
 a{ color: inherit; }
-h1,h2,h3{ font-family: var(--font-display); font-weight: 800; text-wrap: balance; margin: 0; letter-spacing: 0.2px; }
+h1,h2{ font-family: var(--font-display); font-weight: 800; text-wrap: balance; margin: 0; letter-spacing: 0.2px; }
 .eyebrow{
   font-family: var(--font-mono);
   font-size: 12.5px;
@@ -83,25 +49,9 @@ h1,h2,h3{ font-family: var(--font-display); font-weight: 800; text-wrap: balance
   color: var(--accent);
   font-weight: 600;
 }
-section{ position: relative; }
-.overflow-x{ overflow-x: auto; }
 
 /* ---------- header ---------- */
-header.nav{
-  position: sticky; top:16px; z-index: 50;
-  display:flex; justify-content:center;
-  padding: 0 20px;
-}
-.nav-inner{
-  display:flex; align-items:center; justify-content:space-between; gap: 40px;
-  padding: 10px 10px 10px 20px;
-  max-width: 1080px; width: 100%;
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
-  border: 1px solid var(--surface-line);
-  border-radius: 999px;
-  box-shadow: 0 12px 32px -18px rgba(20,32,25,0.16);
-  backdrop-filter: blur(10px);
-}
+.top{ padding: 40px 0 0; }
 .brand{
   display:flex; align-items:baseline; gap:8px;
   font-family: var(--font-display); font-weight: 900;
@@ -111,174 +61,67 @@ header.nav{
   font-family: var(--font-mono); font-weight:500; font-size: 11px;
   color: var(--ink-faint); letter-spacing: 0.08em;
 }
-.nav-links{ display:flex; gap: 26px; font-size: 14px; }
-.nav-links a{ text-decoration:none; color: var(--ink-muted); transition: color .35s cubic-bezier(.32,.72,0,1); }
-.nav-links a:hover{ color: var(--accent); }
-.nav-links a:focus-visible, a:focus-visible, button:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
-@media (max-width: 640px){ .nav-links{ display:none; } }
 
 /* ---------- hero ---------- */
-.hero{
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
-}
-.hero-inner{ padding: 76px 0 56px; display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items:center; }
-@media (max-width: 880px){ .hero-inner{ grid-template-columns: 1fr; padding: 48px 0 40px; } }
+.hero{ padding: 64px 0 20px; border-bottom: 1px solid var(--line); }
+.hero h1{ font-size: clamp(34px, 5vw, 54px); line-height: 1.05; margin-top: 10px; }
+.hero p{ font-size: 17px; color: var(--ink-muted); max-width: 56ch; margin: 16px 0 0; }
 
-.hero h1{ font-size: clamp(38px, 5.6vw, 62px); line-height: 1.0; }
-.hero h1 em{ font-style:normal; color: var(--accent); }
-.hero p.lede{
-  font-size: 18px; color: var(--ink-muted); max-width: 42ch; margin: 18px 0 26px;
+/* ---------- grid ---------- */
+.section{ padding: 56px 0 80px; }
+.grid{
+  display:grid; grid-template-columns: repeat(2, 1fr); gap: 22px;
 }
-.hero-fact-row{ display:flex; gap: 26px; margin-top: 36px; flex-wrap:wrap; }
-.hero-fact{ font-family: var(--font-mono); }
-.hero-fact .n{ font-size: 20px; font-weight:600; display:block; }
-.hero-fact .l{ font-size: 11.5px; color: var(--ink-faint); text-transform:uppercase; letter-spacing:0.08em; }
+@media (max-width: 760px){ .grid{ grid-template-columns: 1fr; } }
 
-/* ---------- schematic diagram ---------- */
-.plate{
+.card{
+  position: relative;
+  display:flex; flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--surface-line);
-  border-radius: 4px;
+  border-radius: 6px;
+  overflow: hidden;
   box-shadow: var(--shadow);
+  text-decoration: none;
+  color: inherit;
+  transition: transform .5s cubic-bezier(.32,.72,0,1), box-shadow .5s cubic-bezier(.32,.72,0,1), border-color .5s;
 }
-.diagram-card{ padding: 18px 18px 14px; }
-.diagram-card .cap{
-  font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint);
-  display:flex; justify-content:space-between; padding-top:10px; border-top:1px solid var(--line); margin-top:14px;
-  letter-spacing:0.04em;
-}
-svg text{ font-family: var(--font-mono); }
-.lbl{ fill: var(--ink-muted); font-size: 11.5px; }
-.lbl-strong{ fill: var(--ink); font-size: 11.5px; font-weight:600; }
-.dim{ stroke: var(--ink-faint); stroke-width:1; }
-.dim-txt{ fill: var(--ink-faint); font-size: 10.5px; }
-.outline{ stroke: var(--ink); fill: none; stroke-width: 2; }
-.outline-thin{ stroke: var(--ink-muted); fill:none; stroke-width:1.2; }
-.accent-fill{ fill: var(--accent); }
-.accent-stroke{ stroke: var(--accent); }
-.tech-fill{ fill: var(--tech); }
-.tech-stroke{ stroke: var(--tech); }
-.leader{ stroke: var(--ink-faint); stroke-width:1; stroke-dasharray:2 2; }
-.dot-node{ fill: var(--bg); stroke: var(--ink); stroke-width:1.4; }
+a.card:hover{ transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(0,0,0,0.55); border-color: var(--accent-hover); }
+a.card:focus-visible{ outline: 2px solid var(--accent-hover); outline-offset: 3px; }
 
-/* ---------- render scene (hero illustration) ---------- */
-.render-shell{
-  padding: 8px; border-radius: 18px;
-  background: var(--bg-alt);
-  border: 1px solid var(--surface-line);
-  box-shadow: 0 20px 48px -30px rgba(20,32,25,0.22);
-}
-.render-core{
-  border-radius: 12px; overflow:hidden;
-  background: #eef3ee;
+.card-media{
+  aspect-ratio: 16/10; overflow:hidden; background: var(--bg-alt);
   position:relative;
 }
-.render-core svg, .render-core img{ display:block; width:100%; height:auto; }
-.render-caption{
-  display:flex; justify-content:space-between; align-items:baseline;
-  padding: 12px 10px 4px;
-  font-family: var(--font-mono); font-size: 10.5px; letter-spacing:.05em;
+.card-media img{ display:block; width:100%; height:100%; object-fit: cover; transition: transform .7s cubic-bezier(.32,.72,0,1); }
+a.card:hover .card-media img{ transform: scale(1.04); }
+.card-media.empty{ display:flex; align-items:center; justify-content:center; }
+.card-media.empty::after{
+  content:"—"; font-family: var(--font-mono); color: var(--ink-faint); font-size: 22px;
+}
+
+.card-body{ padding: 20px 22px 22px; display:flex; flex-direction:column; gap:8px; flex:1; }
+.card-tag{
+  font-family: var(--font-mono); font-size: 10.5px; text-transform:uppercase; letter-spacing:.08em;
   color: var(--ink-faint);
 }
-.render-caption strong{ color: var(--ink-muted); font-weight:600; }
-.pulse-dot{ animation: pulseDot 2.4s cubic-bezier(.4,0,.2,1) infinite; transform-origin: center; transform-box: fill-box; }
-@keyframes pulseDot{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.55; transform:scale(1.35); } }
-@media (prefers-reduced-motion: reduce){ .pulse-dot{ animation: none; } }
-
-/* ---------- scroll reveal ---------- */
-.reveal{ opacity:0; transform: translateY(22px); transition: opacity .8s cubic-bezier(.32,.72,0,1), transform .8s cubic-bezier(.32,.72,0,1); }
-.reveal.is-visible{ opacity:1; transform: translateY(0); }
-.reveal-stagger > *{ opacity:0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.32,.72,0,1), transform .7s cubic-bezier(.32,.72,0,1); }
-.reveal-stagger.is-visible > *{ opacity:1; transform: translateY(0); }
-.reveal-stagger.is-visible > *:nth-child(1){ transition-delay: 0ms; }
-.reveal-stagger.is-visible > *:nth-child(2){ transition-delay: 60ms; }
-.reveal-stagger.is-visible > *:nth-child(3){ transition-delay: 120ms; }
-.reveal-stagger.is-visible > *:nth-child(4){ transition-delay: 180ms; }
-.reveal-stagger.is-visible > *:nth-child(5){ transition-delay: 240ms; }
-.reveal-stagger.is-visible > *:nth-child(6){ transition-delay: 300ms; }
-.reveal-stagger.is-visible > *:nth-child(7){ transition-delay: 360ms; }
-.reveal-stagger.is-visible > *:nth-child(8){ transition-delay: 420ms; }
-@media (prefers-reduced-motion: reduce){
-  .reveal, .reveal-stagger > *{ opacity:1; transform:none; transition:none; }
-  .bar-fill.tractor{ width:100% !important; }
-  .bar-fill.robot{ width:80% !important; }
-  .bar-fill.payroll-old{ width:100% !important; }
-  .bar-fill.payroll-new{ width:30% !important; }
+.card h2{ font-size: 22px; line-height: 1.1; }
+.card p{ font-size: 14px; color: var(--ink-muted); margin: 0; }
+.card-foot{
+  margin-top: auto; padding-top: 14px;
+  display:flex; align-items:center; justify-content:space-between;
+  font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-faint);
 }
+.card-foot .go{ color: var(--accent); font-weight:600; transition: color .35s; }
+a.card:hover .card-foot .go{ color: var(--accent-hover); }
 
-/* ---------- stat grid (single combined numbers block) ---------- */
-.stat-strip{ display:grid; grid-template-columns: repeat(4,1fr); gap:1px; background: var(--line); border:1px solid var(--line); border-radius: 4px; overflow:hidden; }
-.stat-cell{ background: var(--surface); padding: 26px 20px; transition: background .5s cubic-bezier(.32,.72,0,1); }
-.stat-cell:hover{ background: var(--bg-alt); }
-.stat-cell .v{ font-family: var(--font-display); font-weight: 800; font-size: clamp(24px,2.6vw,30px); line-height:1; color: var(--ink); }
-.stat-cell .v span{ color: var(--accent); }
-.stat-cell .l{ margin-top:9px; font-size: 13px; color: var(--ink-muted); }
-.stat-cell .m{ margin-top: 5px; font-family: var(--font-mono); font-size: 10px; color: var(--ink-faint); text-transform:uppercase; letter-spacing:.05em; }
-@media (max-width: 820px){ .stat-strip{ grid-template-columns: 1fr 1fr; } }
-
-.hover-lift{ transition: transform .55s cubic-bezier(.32,.72,0,1), box-shadow .55s cubic-bezier(.32,.72,0,1); }
-.hover-lift:hover{ transform: translateY(-4px); box-shadow: 0 20px 40px -24px rgba(20,32,25,0.18); }
-
-/* ---------- section headers ---------- */
-.section{ padding: 76px 0; }
-.section.alt{ background: var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-.section-head{ max-width: 640px; margin-bottom: 40px; }
-.section-head h2{ font-size: clamp(28px, 3.6vw, 40px); margin-top: 8px; }
-.section-head p{ color: var(--ink-muted); margin-top: 12px; font-size: 16px; }
-
-/* ---------- how it works ---------- */
-.how-grid{ display:grid; grid-template-columns: 1fr 0.85fr; gap: 36px; align-items:start; margin-top: 6px; }
-@media (max-width: 900px){ .how-grid{ grid-template-columns: 1fr; } }
-.flow-caption{ display:grid; grid-template-columns: repeat(2,1fr); gap: 20px 16px; }
-.flow-caption div{ font-size: 13.5px; color: var(--ink-muted); }
-.flow-caption .k{ font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing:.06em; color: var(--ink-faint); display:block; margin-bottom:4px;}
-@media (max-width: 480px){ .flow-caption{ grid-template-columns: 1fr; } }
-
-/* ---------- analog photo (contextual, inline in sections) ---------- */
-.analog-plate{ overflow:hidden; margin-top: 24px; }
-.analog-plate img{ display:block; width:100%; height:auto; }
-.analog-plate .analog-cap{
-  padding: 12px 16px 14px;
-  font-size: 13px; color: var(--ink-muted);
-  border-top: 1px solid var(--line);
+.card.is-soon{ opacity: .7; }
+.card.is-soon .card-foot .go{ color: var(--ink-faint); }
+.badge-soon{
+  position:absolute; top:12px; right:12px; z-index:2;
+  font-family: var(--font-mono); font-size: 10px; text-transform:uppercase; letter-spacing:.07em;
+  background: var(--ink); color: var(--bg); padding: 4px 9px; border-radius: 999px;
 }
-.analog-plate .analog-cap b{ color: var(--ink); font-weight:600; }
-.analog-tag{
-  display:inline-block; font-family: var(--font-mono); font-size: 10px; text-transform:uppercase; letter-spacing:.07em;
-  color: var(--tech); background: var(--tech-ink); padding: 3px 8px; border-radius: 2px; margin-bottom: 8px;
-}
-
-/* ---------- calculations ---------- */
-.calc-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-@media (max-width: 960px){ .calc-grid{ grid-template-columns: 1fr; } }
-.calc-card{ padding: 26px; display:flex; flex-direction:column; }
-.calc-card .headline{ font-family: var(--font-display); font-weight:800; font-size: clamp(34px,3.4vw,44px); line-height:1; color: var(--accent); margin-top: 14px; }
-.calc-card .headline-l{ font-size: 13.5px; color: var(--ink-muted); margin-top:8px; }
-
-.bar-row{ margin-top: 18px; }
-.bar-label{ display:flex; justify-content:space-between; align-items:baseline; font-size: 12.5px; margin-bottom:6px; }
-.bar-label .fig{ font-family: var(--font-mono); font-weight:600; }
-.bar-track{ height:12px; border-radius:6px; background: var(--bg-alt); border:1px solid var(--line); overflow:hidden; }
-.bar-fill{ height:100%; border-radius:6px; transition: width 1s cubic-bezier(.32,.72,0,1); }
-.bar-fill.tractor, .bar-fill.payroll-old{ background: var(--ink-faint); width:0%; }
-.bar-fill.robot, .bar-fill.payroll-new{ background: var(--accent); width:0%; }
-.is-visible .bar-fill.tractor{ width:100%; }
-.is-visible .bar-fill.robot{ width:15%; }
-.is-visible .bar-fill.payroll-old{ width:100%; }
-.is-visible .bar-fill.payroll-new{ width:30%; }
-
-.calc-caveat{ margin-top: auto; padding-top: 16px; border-top: 1px dashed var(--line); font-size: 12px; color: var(--ink-faint); }
-.calc-note{ font-size: 13px; color: var(--ink-faint); margin-top: 20px; }
-
-/* ---------- closing ---------- */
-.closing{
-  background: var(--ink); color: var(--bg);
-  padding: 72px 0;
-}
-.closing .eyebrow{ color: var(--accent); }
-.closing h2{ font-size: clamp(26px,3.6vw,38px); margin: 12px 0 14px; max-width: 22ch; }
-.closing p{ color: color-mix(in srgb, var(--bg) 75%, transparent); max-width: 56ch; font-size: 16px; }
 
 footer{ padding: 24px 0; border-top:1px solid var(--line); }
 .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-size:12.5px; color: var(--ink-faint); font-family: var(--font-mono); }
@@ -286,193 +129,62 @@ footer{ padding: 24px 0; border-top:1px solid var(--line); }
 </head>
 <body>
 
-<header class="nav">
-  <div class="nav-inner">
-    <div class="brand">Агроробот - культиватор</div>
-    <nav class="nav-links">
-      <a href="#numbers">Цифры</a>
-      <a href="#economy">Расчёты</a>
-      <a href="#how">Как это работает</a>
-    </nav>
+<div class="top">
+  <div class="wrap">
+    <div class="brand">Проекты Техностейдж<small>ОЗНАК.</small></div>
   </div>
-</header>
+</div>
 
 <section class="hero">
-  <div class="wrap hero-inner">
-    <div>
-      <h1>Автономный робот<br>для обработки почвы</h1>
-      <p class="lede">Гусеничная платформа с гибридным приводом — ДВС-генератор и электромоторы. Управляется дистанционно — без тракториста в кабине.</p>
-      <div class="hero-fact-row">
-        <div class="hero-fact"><span class="n">2,0 × 1,5 м</span><span class="l">габариты базы</span></div>
-        <div class="hero-fact"><span class="n">гусеницы</span><span class="l">тип движителя</span></div>
-        <div class="hero-fact"><span class="n">через интернет</span><span class="l">дистанционное управление</span></div>
-      </div>
-    </div>
-
-    <div class="render-shell">
-      <div class="render-core">
-        <img src="assets/prot2.jpg" alt="Гусеничный агроробот-культиватор с навесной дисковой бороной, вид спереди сбоку">
-      </div>
-      <div class="render-caption">
-        <span><strong>Агроробот</strong> — прототип</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="numbers">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Цифры проекта</span>
-      <h2>Ключевые показатели</h2>
-      <p>Технические характеристики и результаты расчётов экономики.</p>
-    </div>
-    <div class="stat-strip reveal-stagger">
-      <div class="stat-cell">
-        <div class="v">2,0<span>×</span>1,5 м</div>
-        <div class="l">габариты базы</div>
-      </div>
-      <div class="stat-cell">
-        <div class="v">гусеницы</div>
-        <div class="l">тип движителя</div>
-      </div>
-      <div class="stat-cell">
-        <div class="v"><span>0</span></div>
-        <div class="l">человек в кабине</div>
-      </div>
-      <div class="stat-cell">
-        <div class="v">до <span>60</span> га</div>
-        <div class="l">обработка за смену</div>
-      </div>
-      <div class="stat-cell">
-        <div class="v">1 : <span>5</span></div>
-        <div class="l">диспетчеров к числу машин</div>
-      </div>
-      <div class="stat-cell">
-        <div class="v"><span>1,5</span> л/га</div>
-        <div class="l">расход топлива ДВС</div>
-        <div class="m">генератор питает тяговые электромоторы</div>
-      </div>
-      <div class="stat-cell">
-        <div class="v">≈<span>70</span>%</div>
-        <div class="l">экономии</div>
-        <div class="m">оценка, база из 5 машин</div>
-      </div>
-      <div class="stat-cell">
-        <div class="v"><span>2–3</span> сезона</div>
-        <div class="l">окупаемость</div>
-      </div>
-    </div>
+    <h1>Разработки автономных агророботов</h1>
   </div>
 </section>
 
-<section class="section alt" id="economy">
+<section class="section">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Расчёты</span>
-      <h2>Экономика на пальцах</h2>
-      <p>Три модельные оценки, из которых складывается интерес проекта. Все допущения указаны рядом с цифрой.</p>
-    </div>
+    <div class="grid">
 
-    <div class="calc-grid reveal-stagger">
-      <div class="plate calc-card hover-lift">
-        <span class="eyebrow">Топливо</span>
-        <div class="headline">85%</div>
-        <div class="headline-l">экономии жидкого топлива на гектар обработки</div>
-        <div class="bar-row">
-          <div class="bar-label"><span>Трактор, дизель</span><span class="fig">10 л/га</span></div>
-          <div class="bar-track"><div class="bar-fill tractor"></div></div>
+      <a class="card" href="pahar-x1/index.html">
+        <div class="card-media">
+          <img src="prot2.jpg" alt="Гусеничный агроробот-культиватор, вид спереди сбоку">
         </div>
-        <div class="bar-row">
-          <div class="bar-label"><span>Агроробот, ДВС-генератор</span><span class="fig">≈1,5 л/га</span></div>
-          <div class="bar-track"><div class="bar-fill robot"></div></div>
+        <div class="card-body">
+          <span class="card-tag">Гусеничная платформа</span>
+          <h2>Агроробот-культиватор</h2>
+          <p>Гибридный привод ДВС-генератор + электромоторы, дистанционное управление, обработка почвы и посев за один проход.</p>
+          <div class="card-foot">
+            <span>2,0 × 1,5 м</span>
+            <span class="go">Смотреть →</span>
+          </div>
         </div>
-        <div class="calc-caveat">Компактный ДВС вращает генератор, который питает электромоторы гусеничного хода и гидравлику бороны — расход топлива в разы ниже, чем у дизельного трактора.</div>
-      </div>
+      </a>
 
-      <div class="plate calc-card hover-lift">
-        <span class="eyebrow">Зарплаты</span>
-        <div class="headline">≈ 70%</div>
-        <div class="headline-l">экономии на оплате труда при обслуживании 5 машин</div>
-        <div class="bar-row">
-          <div class="bar-label"><span>5 трактористов</span><span class="fig">300 000 ₽/мес</span></div>
-          <div class="bar-track"><div class="bar-fill payroll-old"></div></div>
+      <a class="card" href="robocleaner/index.html">
+        <div class="card-media">
+          <img src="image.png" alt="Робот-уборщик RoboCleaner на парковке">
         </div>
-        <div class="bar-row">
-          <div class="bar-label"><span>1 диспетчер</span><span class="fig">≈90 000 ₽/мес</span></div>
-          <div class="bar-track"><div class="bar-fill payroll-new"></div></div>
+        <div class="card-body">
+          <span class="card-tag">Автономная уборка</span>
+          <h2>RoboCleaner</h2>
+          <p>Автономный робот-уборщик территорий: сухая и влажная уборка, объезд препятствий, панель диспетчера с удалённым контролем.</p>
+          <div class="card-foot">
+            <span>до 5000 м²/смену</span>
+            <span class="go">Смотреть →</span>
+          </div>
         </div>
-        <div class="calc-caveat">5 × 60 000 ₽ (тракторист) против 1 диспетчера на удалённом контроле. Ставка диспетчера — предварительная оценка.</div>
-      </div>
+      </a>
 
-      <div class="plate calc-card hover-lift">
-        <span class="eyebrow">Окупаемость</span>
-        <div class="headline">2–3</div>
-        <div class="headline-l">сезона — срок возврата вложений в машину</div>
-        <div class="calc-caveat" style="margin-top:18px;">Складывается из совместной экономии на топливе и оплате труда.</div>
-      </div>
     </div>
-  </div>
-</section>
-
-<section class="section" id="how">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Как это работает</span>
-      <h2>ДВС-генератор ведёт гусеницы и орудие</h2>
-      <p>Двигатель внутреннего сгорания вращает генератор, который питает электромоторы гусеничного хода и гидравлическую систему бороны. Расход топлива — около 1,5 л на гектар обработки. Гидравлика поднимает, опускает и удерживает нужную глубину обработки. Следом за бороной сопла высевающей системы засевают уже обработанную почву — обработка и посев происходят за один проход.</p>
-    </div>
-
-    <div class="how-grid reveal">
-      <div class="flow-caption">
-        <div><span class="k">01 — движение</span>Электромоторы вращают гусеницы, энергию даёт генератор на ДВС.</div>
-        <div><span class="k">02 — обработка</span>Борона рыхлит почву позади базы.</div>
-        <div><span class="k">03 — посев</span>Сопла высевающей системы засевают обработанную землю семенами сразу за бороной.</div>
-        <div><span class="k">04 — гидравлика</span>Гидроцилиндры регулируют глубину и подъём орудия.</div>
-        <div><span class="k">05 — контроль</span>Датчики и антенны передают телеметрию оператору.</div>
-      </div>
-
-      <div class="plate analog-plate hover-lift">
-        <img src="assets/prot1.jpg" alt="Гусеничный агроробот-культиватор: гидравлические магистрали, подающие давление к дисковой бороне">
-        <div class="analog-cap"><b>Гидравлические магистрали</b> подают давление к цилиндрам бороны и регулируют её ход.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="closing">
-  <div class="wrap reveal">
-    <span class="eyebrow">Агроробот-культиватор</span>
-    <h2>Гибридный привод. Дистанционное управление. Обработка и посев за один проход.</h2>
-    <p>Автономный агроробот для обработки почвы и посева.</p>
   </div>
 </section>
 
 <footer>
   <div class="wrap footer-row">
-    <span>АГРОРОБОТ-КУЛЬТИВАТОР</span>
+    <span>РОБОТЫ — ПРЕЗЕНТАЦИИ</span>
     <span>2026</span>
   </div>
 </footer>
 
-<script>
-(function(){
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var targets = document.querySelectorAll('.reveal, .reveal-stagger');
-  if (!('IntersectionObserver' in window)) {
-    targets.forEach(function(el){ el.classList.add('is-visible'); });
-    return;
-  }
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-  targets.forEach(function(el){ io.observe(el); });
-})();
-</script>
 </body>
 </html>
