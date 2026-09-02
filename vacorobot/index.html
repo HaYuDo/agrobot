@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VacoRobot — робот-пылесос</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: #ffffff;
+  --bg-alt: #f9f5ef;
+  --surface: #ffffff;
+  --surface-line: #ece1d1;
+  --ink: #241c12;
+  --ink-muted: #6b5d48;
+  --ink-faint: #a3937a;
+  --accent: #b4550f;
+  --accent-ink: #ffffff;
+  --tech: #3b6b6b;
+  --tech-ink: #eaf2f0;
+  --line: #ece1d1;
+  --shadow: 0 1px 0 rgba(36,28,18,0.05);
+
+  --font-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --font-body: "Public Sans", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "Consolas", monospace;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #17130d;
+    --bg-alt: #1c1811;
+    --surface: #221c14;
+    --surface-line: #332a1c;
+    --ink: #f4ede1;
+    --ink-muted: #c2b198;
+    --ink-faint: #8a7a62;
+    --accent: #e07a2c;
+    --accent-ink: #1a1006;
+    --tech: #7fb3ab;
+    --tech-ink: #0d1815;
+    --line: #332a1c;
+    --shadow: 0 1px 0 rgba(0,0,0,0.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg: #17130d;
+  --bg-alt: #1c1811;
+  --surface: #221c14;
+  --surface-line: #332a1c;
+  --ink: #f4ede1;
+  --ink-muted: #c2b198;
+  --ink-faint: #8a7a62;
+  --accent: #e07a2c;
+  --accent-ink: #1a1006;
+  --tech: #7fb3ab;
+  --tech-ink: #0d1815;
+  --line: #332a1c;
+  --shadow: 0 1px 0 rgba(0,0,0,0.35);
+}
+
+*{ box-sizing: border-box; }
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img{ max-width:100%; }
+.wrap{ max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+a{ color: inherit; }
+h1,h2,h3{ font-family: var(--font-display); font-weight: 800; text-wrap: balance; margin: 0; letter-spacing: 0.2px; }
+.eyebrow{
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+section{ position: relative; }
+
+/* ---------- header ---------- */
+header.nav{
+  position: sticky; top:16px; z-index: 50;
+  display:flex; justify-content:center;
+  padding: 0 20px;
+}
+.nav-inner{
+  display:flex; align-items:center; justify-content:space-between; gap: 40px;
+  padding: 10px 10px 10px 20px;
+  max-width: 1080px; width: 100%;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border: 1px solid var(--surface-line);
+  border-radius: 999px;
+  box-shadow: 0 12px 32px -18px rgba(36,28,18,0.16);
+  backdrop-filter: blur(10px);
+}
+.brand{
+  display:flex; align-items:baseline; gap:8px;
+  font-family: var(--font-display); font-weight: 900;
+  font-size: 20px; letter-spacing: 0.5px;
+}
+.brand small{
+  font-family: var(--font-mono); font-weight:500; font-size: 11px;
+  color: var(--ink-faint); letter-spacing: 0.08em;
+}
+.nav-links{ display:flex; gap: 26px; font-size: 14px; }
+.nav-links a{ text-decoration:none; color: var(--ink-muted); transition: color .35s cubic-bezier(.32,.72,0,1); }
+.nav-links a:hover{ color: var(--accent); }
+.nav-links a:focus-visible, a:focus-visible, button:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 640px){ .nav-links{ display:none; } }
+
+/* ---------- hero ---------- */
+.hero{ background: var(--bg); border-bottom: 1px solid var(--line); }
+.hero-inner{ padding: 76px 0 56px; display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items:center; }
+@media (max-width: 880px){ .hero-inner{ grid-template-columns: 1fr; padding: 48px 0 40px; } }
+.hero h1{ font-size: clamp(38px, 5.6vw, 62px); line-height: 1.0; }
+.hero h1 em{ font-style:normal; color: var(--accent); }
+.hero p.lede{ font-size: 18px; color: var(--ink-muted); max-width: 44ch; margin: 18px 0 26px; }
+.hero-fact-row{ display:flex; gap: 26px; margin-top: 36px; flex-wrap:wrap; }
+.hero-fact{ font-family: var(--font-mono); }
+.hero-fact .n{ font-size: 20px; font-weight:600; display:block; }
+.hero-fact .l{ font-size: 11.5px; color: var(--ink-faint); text-transform:uppercase; letter-spacing:0.08em; }
+
+.plate{ background: var(--surface); border: 1px solid var(--surface-line); border-radius: 4px; box-shadow: var(--shadow); }
+
+.render-shell{
+  padding: 8px; border-radius: 18px;
+  background: var(--bg-alt);
+  border: 1px solid var(--surface-line);
+  box-shadow: 0 20px 48px -30px rgba(36,28,18,0.22);
+  position: relative;
+}
+.render-core{ border-radius: 12px; overflow:hidden; background: #f0e9dd; position:relative; }
+.render-core img{ display:block; width:100%; height:auto; }
+.render-caption{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding: 12px 10px 4px;
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing:.05em;
+  color: var(--ink-faint);
+}
+.render-caption strong{ color: var(--ink-muted); font-weight:600; }
+
+.scale-inset{
+  position: absolute; right: 22px; bottom: -34px; width: 168px;
+  border-radius: 10px; overflow: hidden;
+  border: 3px solid var(--bg);
+  box-shadow: 0 14px 30px -14px rgba(36,28,18,0.4);
+  background: var(--surface);
+}
+.scale-inset img{ display:block; width:100%; height:auto; }
+.scale-inset .tag{
+  position:absolute; left:6px; bottom:6px;
+  font-family: var(--font-mono); font-size: 9px; text-transform:uppercase; letter-spacing:.06em;
+  background: rgba(20,14,6,0.62); color:#fff; padding: 2px 6px; border-radius: 3px;
+}
+@media (max-width: 560px){ .scale-inset{ display:none; } }
+
+/* ---------- scroll reveal ---------- */
+.reveal{ opacity:0; transform: translateY(22px); transition: opacity .8s cubic-bezier(.32,.72,0,1), transform .8s cubic-bezier(.32,.72,0,1); }
+.reveal.is-visible{ opacity:1; transform: translateY(0); }
+.reveal-stagger > *{ opacity:0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.32,.72,0,1), transform .7s cubic-bezier(.32,.72,0,1); }
+.reveal-stagger.is-visible > *{ opacity:1; transform: translateY(0); }
+.reveal-stagger.is-visible > *:nth-child(1){ transition-delay: 0ms; }
+.reveal-stagger.is-visible > *:nth-child(2){ transition-delay: 60ms; }
+.reveal-stagger.is-visible > *:nth-child(3){ transition-delay: 120ms; }
+.reveal-stagger.is-visible > *:nth-child(4){ transition-delay: 180ms; }
+.reveal-stagger.is-visible > *:nth-child(5){ transition-delay: 240ms; }
+.reveal-stagger.is-visible > *:nth-child(6){ transition-delay: 300ms; }
+.reveal-stagger.is-visible > *:nth-child(7){ transition-delay: 360ms; }
+.reveal-stagger.is-visible > *:nth-child(8){ transition-delay: 420ms; }
+@media (prefers-reduced-motion: reduce){ .reveal, .reveal-stagger > *{ opacity:1; transform:none; transition:none; } }
+
+/* ---------- stat grid ---------- */
+.stat-strip{ display:grid; grid-template-columns: repeat(3,1fr); gap:1px; background: var(--line); border:1px solid var(--line); border-radius: 4px; overflow:hidden; }
+.stat-cell{ background: var(--surface); padding: 26px 20px; transition: background .5s cubic-bezier(.32,.72,0,1); }
+.stat-cell:hover{ background: var(--bg-alt); }
+.stat-cell .v{ font-family: var(--font-display); font-weight: 800; font-size: clamp(22px,2.4vw,28px); line-height:1; color: var(--ink); }
+.stat-cell .v span{ color: var(--accent); }
+.stat-cell .l{ margin-top:9px; font-size: 13px; color: var(--ink-muted); }
+.stat-cell .m{ margin-top: 5px; font-family: var(--font-mono); font-size: 10px; color: var(--ink-faint); text-transform:uppercase; letter-spacing:.05em; }
+@media (max-width: 720px){ .stat-strip{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 460px){ .stat-strip{ grid-template-columns: 1fr; } }
+
+.hover-lift{ transition: transform .55s cubic-bezier(.32,.72,0,1), box-shadow .55s cubic-bezier(.32,.72,0,1); }
+.hover-lift:hover{ transform: translateY(-4px); box-shadow: 0 20px 40px -24px rgba(36,28,18,0.18); }
+
+/* ---------- section headers ---------- */
+.section{ padding: 76px 0; }
+.section.alt{ background: var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.section-head{ max-width: 640px; margin-bottom: 40px; }
+.section-head h2{ font-size: clamp(28px, 3.6vw, 40px); margin-top: 8px; }
+.section-head p{ color: var(--ink-muted); margin-top: 12px; font-size: 16px; }
+
+/* ---------- function cards ---------- */
+.func-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+@media (max-width: 960px){ .func-grid{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px){ .func-grid{ grid-template-columns: 1fr; } }
+.func-card{ padding: 24px 20px; }
+.func-card .idx{ font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); }
+.func-card h3{ font-size: 18px; margin-top: 10px; }
+.func-card p{ font-size: 13.5px; color: var(--ink-muted); margin: 8px 0 0; }
+
+/* ---------- feature (flow) layout ---------- */
+.how-grid{ display:grid; grid-template-columns: 1fr 0.85fr; gap: 36px; align-items:start; margin-top: 6px; }
+.how-grid.rev{ grid-template-columns: 0.85fr 1fr; }
+@media (max-width: 900px){ .how-grid, .how-grid.rev{ grid-template-columns: 1fr; } }
+.how-grid.rev .plate{ order:-1; }
+@media (max-width: 900px){ .how-grid.rev .plate{ order:0; } }
+.flow-caption{ display:grid; grid-template-columns: repeat(2,1fr); gap: 20px 16px; }
+.flow-caption div{ font-size: 13.5px; color: var(--ink-muted); }
+.flow-caption .k{ font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing:.06em; color: var(--ink-faint); display:block; margin-bottom:4px;}
+@media (max-width: 480px){ .flow-caption{ grid-template-columns: 1fr; } }
+
+.analog-plate{ overflow:hidden; }
+.analog-plate img{ display:block; width:100%; height:auto; }
+.analog-plate .analog-cap{ padding: 12px 16px 14px; font-size: 13px; color: var(--ink-muted); border-top: 1px solid var(--line); }
+.analog-plate .analog-cap b{ color: var(--ink); font-weight:600; }
+.analog-tag{
+  display:inline-block; font-family: var(--font-mono); font-size: 10px; text-transform:uppercase; letter-spacing:.07em;
+  color: var(--tech); background: var(--tech-ink); padding: 3px 8px; border-radius: 2px; margin-bottom: 8px;
+}
+
+/* ---------- talk / interaction callout ---------- */
+.talk-card{ display:grid; grid-template-columns: 1fr; gap: 22px; padding: 32px; }
+.talk-example{
+  display:flex; gap: 14px; align-items:flex-start;
+  background: var(--bg-alt); border: 1px solid var(--line); border-radius: 6px;
+  padding: 16px 18px; margin-top: 18px;
+}
+.talk-example .who{ font-family: var(--font-mono); font-size: 10.5px; text-transform:uppercase; letter-spacing:.06em; color: var(--ink-faint); white-space:nowrap; padding-top:2px; }
+.talk-example .txt{ font-size: 14.5px; color: var(--ink); }
+.talk-example + .talk-example{ margin-top: 10px; }
+
+/* ---------- closing ---------- */
+.closing{ background: var(--ink); color: var(--bg); padding: 72px 0; }
+.closing .eyebrow{ color: var(--accent); }
+.closing h2{ font-size: clamp(26px,3.6vw,38px); margin: 12px 0 14px; max-width: 24ch; }
+.closing p{ color: color-mix(in srgb, var(--bg) 75%, transparent); max-width: 56ch; font-size: 16px; }
+
+footer{ padding: 24px 0; border-top:1px solid var(--line); }
+.footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-size:12.5px; color: var(--ink-faint); font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">VacoRobot<small>РОБОТ-ПЫЛЕСОС</small></div>
+    <nav class="nav-links">
+      <a href="#numbers">Цифры</a>
+      <a href="#functions">Функции</a>
+      <a href="#autonomy">Автономность</a>
+      <a href="#dispatcher">Диспетчер</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <h1>Автономный робот<br>для уборки листвы и мусора</h1>
+      <p class="lede">Всасывает листву и мелкий мусор с открытых поверхностей, сзади щётки очищают брусчатку от луж и грязи. Навигация на лидаре и камерах, работает при 0…+50°C без оператора на месте.</p>
+      <div class="hero-fact-row">
+        <div class="hero-fact"><span class="n">4–6 ч</span><span class="l">работа от заряда</span></div>
+        <div class="hero-fact"><span class="n">до 5000 м²</span><span class="l">уборка за смену</span></div>
+        <div class="hero-fact"><span class="n">&lt;2 мин</span><span class="l">смена щёток</span></div>
+      </div>
+    </div>
+
+    <div class="render-shell">
+      <div class="render-core">
+        <img src="assets/working.png" alt="Робот-пылесос VacoRobot убирает листву в парке">
+      </div>
+      <div class="render-caption">
+        <span><strong>VacoRobot</strong> — прототип</span>
+      </div>
+      <div class="scale-inset">
+        <img src="assets/out1.png" alt="VacoRobot рядом с легковым автомобилем для сравнения размеров">
+        <span class="tag">масштаб</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="numbers" style="padding-top:112px;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Цифры проекта</span>
+      <h2>Ключевые показатели</h2>
+      <p>Ориентировочные технические характеристики прототипа.</p>
+    </div>
+    <div class="stat-strip reveal-stagger">
+      <div class="stat-cell">
+        <div class="v">≈1,3 × 0,75 м</div>
+        <div class="l">габариты платформы</div>
+      </div>
+      <div class="stat-cell">
+        <div class="v"><span>4–6</span> ч</div>
+        <div class="l">работа от заряда батареи</div>
+      </div>
+      <div class="stat-cell">
+        <div class="v">до <span>5000</span> м²</div>
+        <div class="l">уборка за смену</div>
+      </div>
+      <div class="stat-cell">
+        <div class="v">до <span>5</span> км/ч</div>
+        <div class="l">скорость движения</div>
+      </div>
+      <div class="stat-cell">
+        <div class="v">≈<span>30</span> л</div>
+        <div class="l">ёмкость контейнера</div>
+        <div class="m">листва и мелкий мусор</div>
+      </div>
+      <div class="stat-cell">
+        <div class="v">&lt;<span>2</span> мин</div>
+        <div class="l">смена щёток</div>
+        <div class="m">без инструментов</div>
+      </div>
+      <div class="stat-cell">
+        <div class="v">0…<span>+50</span>°C</div>
+        <div class="l">диапазон рабочих температур</div>
+        <div class="m">включая работу после дождя</div>
+      </div>
+      <div class="stat-cell">
+        <div class="v"><span>0</span></div>
+        <div class="l">операторов на месте</div>
+        <div class="m">удалённый контроль диспетчером</div>
+      </div>
+      <div class="stat-cell">
+        <div class="v">LiDAR + <span>камеры</span></div>
+        <div class="l">комплект датчиков</div>
+        <div class="m">плюс УЗ/ИК ближнего действия</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="functions">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Функциональность</span>
+      <h2>Что умеет VacoRobot</h2>
+      <p>Всасывание листвы, чистка брусчатки щётками и работа в любых погодных условиях.</p>
+    </div>
+    <div class="func-grid reveal-stagger">
+      <div class="plate func-card hover-lift">
+        <span class="idx">01</span>
+        <h3>Всасывание листвы и мусора</h3>
+        <p>Собирает листву и мелкий мусор с открытых поверхностей в контейнер.</p>
+      </div>
+      <div class="plate func-card hover-lift">
+        <span class="idx">02</span>
+        <h3>Чистка брусчатки щётками</h3>
+        <p>Задние щётки очищают брусчатку от луж и грязи следом за уборкой.</p>
+      </div>
+      <div class="plate func-card hover-lift">
+        <span class="idx">03</span>
+        <h3>Объезд препятствий</h3>
+        <p>Автоматически строит маршрут вокруг людей, скамеек и других преград.</p>
+      </div>
+      <div class="plate func-card hover-lift">
+        <span class="idx">04</span>
+        <h3>Работа в любую погоду</h3>
+        <p>Диапазон рабочих температур 0…+50°C. Сохраняет работоспособность после дождя, в сырую и ветреную погоду.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="autonomy">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Датчики и автономность</span>
+      <h2>Видит территорию и работает без оператора</h2>
+      <p>Основа навигации — лидар (LiDAR): лазерный дальномер сканирует пространство вокруг робота и строит подробную 3D-карту территории в реальном времени. По этой карте робот точно определяет своё положение и прокладывает маршрут уборки. Камеры компьютерного зрения распознают людей, объекты и границы убираемой зоны, а ультразвуковые и ИК-датчики ближнего действия подстраховывают на случай, если препятствие окажется вне поля зрения лидара и камер.</p>
+    </div>
+
+    <div class="how-grid reveal">
+      <div class="flow-caption">
+        <div><span class="k">01 — LiDAR</span>Лазерный дальномер сканирует пространство на 360° и строит 3D-карту территории в реальном времени.</div>
+        <div><span class="k">02 — позиционирование</span>По карте лидара робот точно определяет своё положение и прокладывает маршрут уборки.</div>
+        <div><span class="k">03 — зрение</span>Камеры распознают объекты, людей и границы убираемой зоны.</div>
+        <div><span class="k">04 — ближний план</span>УЗ/ИК-датчики подстраховывают лидар и камеры на близкой дистанции по периметру корпуса.</div>
+        <div><span class="k">05 — режим</span>Работает как полностью по маршруту, так и под контролем оператора.</div>
+        <div><span class="k">06 — заряд</span>Автоматически возвращается на базу для подзарядки при разряде батареи.</div>
+      </div>
+
+      <div class="plate analog-plate hover-lift">
+        <img src="assets/fff.png" alt="VacoRobot, вид строго спереди — расположение лидара и камер">
+        <div class="analog-cap"><span class="analog-tag">вид спереди</span><br><b>Лидар и камеры</b> в передней части корпуса сканируют пространство и распознают препятствия по ходу движения.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="talk">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Взаимодействие с людьми</span>
+      <h2>Понимает обстановку и реагирует на просьбы</h2>
+      <p>Робот распознаёт голосовые обращения и по возможности выполняет простые просьбы людей рядом — например, отъезжает, если попросить его уступить дорогу.</p>
+    </div>
+    <div class="plate talk-card reveal">
+      <div class="talk-example">
+        <span class="who">Человек</span>
+        <span class="txt">«Подожди секунду, дай пройти с коляской»</span>
+      </div>
+      <div class="talk-example">
+        <span class="who">VacoRobot</span>
+        <span class="txt">Распознаёт голосовое обращение, оценивает обстановку по камерам и датчикам и уступает дорогу, если это не мешает выполнению задачи.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="brush">
+  <div class="wrap">
+    <div class="how-grid rev reveal">
+      <div class="plate analog-plate hover-lift">
+        <img src="assets/bbb.png" alt="VacoRobot, вид строго сзади — щётки для чистки брусчатки">
+        <div class="analog-cap"><span class="analog-tag">вид сзади</span><br><b>Задние щётки</b> для чистки брусчатки от луж и грязи меняются без инструментов.</div>
+      </div>
+      <div>
+        <span class="eyebrow">Быстрая смена щёток</span>
+        <h2 style="margin-top:8px; font-size: clamp(26px,3vw,34px);">Щётки под тип поверхности и загрязнения</h2>
+        <p style="color:var(--ink-muted); margin-top:14px; font-size:15.5px;">Задние щётки меняются без инструментов менее чем за 2 минуты. Комплект насадок подбирается под конкретную задачу — брусчатку, асфальт или сырую листву после дождя.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="dispatcher">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Панель диспетчера</span>
+      <h2>Контроль состояния через интернет</h2>
+      <p>Веб-панель на подключении к интернету — оператор видит состояние робота и может вмешаться в любой момент, даже не находясь рядом.</p>
+    </div>
+    <div class="func-grid reveal-stagger">
+      <div class="plate func-card hover-lift">
+        <span class="idx">01</span>
+        <h3>Позиция на карте</h3>
+        <p>Статус и местоположение робота в реальном времени.</p>
+      </div>
+      <div class="plate func-card hover-lift">
+        <span class="idx">02</span>
+        <h3>Заряд и расходники</h3>
+        <p>Заряд батареи и заполненность контейнера для мусора и листвы.</p>
+      </div>
+      <div class="plate func-card hover-lift">
+        <span class="idx">03</span>
+        <h3>История и отчёты</h3>
+        <p>Маршруты и отчёты по убранной площади за смену и период.</p>
+      </div>
+      <div class="plate func-card hover-lift">
+        <span class="idx">04</span>
+        <h3>Ручное управление</h3>
+        <p>Удалённое управление и остановка робота в реальном времени.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap reveal">
+    <span class="eyebrow">VacoRobot</span>
+    <h2>Всасывает листву. Чистит брусчатку. Работает в любую погоду.</h2>
+    <p>Автономный робот-пылесос для парков, скверов и пешеходных зон.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>VACOROBOT</span>
+    <span>2026</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var targets = document.querySelectorAll('.reveal, .reveal-stagger');
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach(function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  targets.forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
