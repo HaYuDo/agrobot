@@ -147,21 +147,6 @@ header.nav{
 }
 .render-caption strong{ color: var(--ink-muted); font-weight:600; }
 
-.scale-inset{
-  position: absolute; right: 22px; bottom: -34px; width: 168px;
-  border-radius: 10px; overflow: hidden;
-  border: 3px solid var(--bg);
-  box-shadow: 0 14px 30px -14px rgba(36,28,18,0.4);
-  background: var(--surface);
-}
-.scale-inset img{ display:block; width:100%; height:auto; }
-.scale-inset .tag{
-  position:absolute; left:6px; bottom:6px;
-  font-family: var(--font-mono); font-size: 9px; text-transform:uppercase; letter-spacing:.06em;
-  background: rgba(20,14,6,0.62); color:#fff; padding: 2px 6px; border-radius: 3px;
-}
-@media (max-width: 560px){ .scale-inset{ display:none; } }
-
 /* ---------- scroll reveal ---------- */
 .reveal{ opacity:0; transform: translateY(22px); transition: opacity .8s cubic-bezier(.32,.72,0,1), transform .8s cubic-bezier(.32,.72,0,1); }
 .reveal.is-visible{ opacity:1; transform: translateY(0); }
@@ -281,15 +266,11 @@ footer{ padding: 24px 0; border-top:1px solid var(--line); }
       <div class="render-caption">
         <span><strong>VacoRobot</strong> — прототип</span>
       </div>
-      <div class="scale-inset">
-        <img src="assets/out1.png" alt="VacoRobot рядом с легковым автомобилем для сравнения размеров">
-        <span class="tag">масштаб</span>
-      </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="numbers" style="padding-top:112px;">
+<section class="section" id="numbers">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Цифры проекта</span>
@@ -342,7 +323,21 @@ footer{ padding: 24px 0; border-top:1px solid var(--line); }
   </div>
 </section>
 
-<section class="section alt" id="functions">
+<section class="section alt" id="scale">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Масштаб</span>
+      <h2>Реальные размеры платформы</h2>
+      <p>VacoRobot рядом с легковым автомобилем — для наглядного представления габаритов.</p>
+    </div>
+    <div class="plate analog-plate hover-lift reveal">
+      <img src="assets/out1.png" alt="VacoRobot рядом с легковым автомобилем для сравнения размеров">
+      <div class="analog-cap"><b>Для масштаба</b> — прототип VacoRobot на парковке рядом с легковым автомобилем.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="functions">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Функциональность</span>
